@@ -1,0 +1,124 @@
+Angular Social Application (MEAN)
+-----------------------------
+Client -> Angular + NGRX + Bootstrap
+Server -> Node JS + Express JS + MongoDB
+
+Folder Structure
+-----------------
+BrainsKart
+	-> client
+		-> Client Code 
+	-> server Code
+	
+
+client Configuration
+---------------------
+-> Create an Angular Application "client" -> ng new client
+
+-> root -> 
+	-> components
+		-> navbar , home
+	-> services
+	-> models 	
+	
+-> modules -> developers , posts , profiles , users	
+	ng generate module developers --route developers --module app.module
+	ng generate module posts --route posts --module app.module
+	ng generate module profiles --route profiles --module app.module
+	ng generate module users --route users --module app.module
+	
+-> each module have its own things
+	components , 
+	services , 
+	models , 
+	actions , 
+	reducers , 
+	effects
+	
+-> Users Module :
+		components : user-login , user-register
+		services : user.service
+		
+-> Developers module :
+		components : developer-list , developer-details
+        services : developer.service
+		
+-> Profiles module :
+		components : dashboard , create-profile , edit-profile, edit-education , edit-experience
+        services : profile.service		
+		
+-> Posts module : 
+		components : posts , comments 
+		services : post.service	
+
+-----------------------------------------------------------
+NGRX Configuration
+-----------------------------------------------------------
+-> Install the NGRX libraries
+
+		npm install @ngrx/store
+		npm install @ngrx/store-devtools
+		npm install @ngrx/effects 
+		npm install @ngrx/schematics
+
+-> configure the @ngrx/schematics for Angular CLI
+		
+		ng add @ngrx/schematics@latest
+	
+
+Root (store , effect) (/src/app folder)
+---------------------
+ng generate @ngrx/schematics:store State --root --module app.module.ts
+ng generate @ngrx/schematics:effect Root --root --module app.module.ts --group
+
+NOTE : open browser & check the NGRX Configuration in Redux dev tools extension plugin		 
+		 
+users (actions , reducers , effects, state) (users folder)
+---------------------------------------
+ng generate @ngrx/schematics:store State --module users.module.ts
+ng generate @ngrx/schematics:reducer user --group
+ng generate @ngrx/schematics:action user --group
+ng generate @ngrx/schematics:effect user --module users.module.ts --group
+
+developers (actions , reducers , effects, state) (developers folder)
+---------------------------------------
+ng generate @ngrx/schematics:store State --module developers.module.ts
+ng generate @ngrx/schematics:reducer developer --group
+ng generate @ngrx/schematics:action developer --group
+ng generate @ngrx/schematics:effect developer --module developers.module.ts --group
+
+profiles (actions , reducers , effects, state) (profiles folder)
+---------------------------------------
+ng generate @ngrx/schematics:store State --module profiles.module.ts
+ng generate @ngrx/schematics:reducer profile --group
+ng generate @ngrx/schematics:action profile --group
+ng generate @ngrx/schematics:effect profile --module profiles.module.ts --group
+
+posts (actions , reducers , effects, state) (posts folder)
+---------------------------------------
+ng generate @ngrx/schematics:store State --module posts.module.ts
+ng generate @ngrx/schematics:reducer post --group
+ng generate @ngrx/schematics:action post --group
+ng generate @ngrx/schematics:effect post --module posts.module.ts --group
+
+	
+Note : Modify the each "module" level "reducer" folder -> "index.ts"
+		-> import { environment } from '../../../environments/environment';
+		
+	 : Configure all Effects with Root Effects[] in app.module.ts
+	ex: EffectsModule.forRoot([RootEffects , DeveloperEffects , UserEffects , ProfileEffects , PostEffects])	 
+	
+-----------------------------------------------------------
+Server Configuration
+-----------------------------------------------------------
+modules : 	bcryptjs , 
+			cors , 
+			dotenv , 
+			express , 
+			express-validator , 
+			gravatar ,
+			jsonwebtoken,
+			mongoose
+
+npm install bcryptjs cors dotenv express express-validator gravatar jsonwebtoken mongoose 
+
